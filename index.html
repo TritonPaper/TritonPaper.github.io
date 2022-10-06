@@ -1,1 +1,106 @@
-Hello World!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,900">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:300,400,700">
+    <link rel="stylesheet" href="latex.css">
+    <title>TRITON</title>
+</head>
+<body>
+
+
+    <div class="video_wrapper">
+        <iframe src="https://www.youtube-nocookie.com/embed/kecK_cJgLT8?autoplay=1&rel=0" allowfullscreen></iframe>
+    </div>
+
+    
+    <h1>Neural Neural Textures Make Sim2Real Consistent</h1>
+    <p class="author">
+        <a href="https://github.com/RyannDaGreat" target="_blank">Ryan Burgert</a>,
+        <a href="https://www3.cs.stonybrook.edu/~jishang" target="_blank">Jinghuan Shang</a>, <a href="https://xxli.me/" target="_blank">Xiang Li</a>, <a href="http://michaelryoo.com/" target="_blank">Michael S. Ryoo</a></p>
+    <p class="author">Stony Brook University</p>
+    <p class="author">To appear at CoRL 2022</p>
+    <p style="text-align: center"><a href="TRITON_Paper.pdf" target="_blank">[Paper]</a> [Code-Soon]</p>
+
+    <img src="figure0.png"/>
+    <br>
+    We propose <b>TRITON</b> (<b>T</b>exture <b>R</b>ecovering <b>I</b>mage <b>T</b>ranslation <b>N</b>etwork): an unpaired image translation algorithm which takes the UV map and object labels of a 3d scene and renders a realistic image. <b>TRITON</b> combines differentiable rendering with image translation to achieve temporal consistency over indefinite timescales, using surface consistency losses and <a href="#texture"><i>neural neural textures</i></a>.
+    <br>
+    <br>
+    <p><b>Checkout the videos below and see how TRITON works!</b></p>
+    <h2 class="abstract">Sim2Real</h2>
+    <h4>Genereate realistic images from unseen viewpoint</h4>
+    <div class="caption">TRITON was trained using two views (the rows labeled "Camera1" and "Camera2"), but was also evaluated on an unseen camera angle ("Unseen Camera"). "Sim (UVL)" is the input image containing UV maps and labels, and "Real GT" contains photographs of the robot arm to match the poses in the real world.</div>
+     <div class="video_wrapper">
+        <iframe src="https://www.youtube.com/embed/kecK_cJgLT8?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    
+    <br>
+    <br>
+
+    <h4>Robot policy trained by sim2real</h4>
+    <div class="caption">TRITON enables a robot reacher task. In this sim2real experiment, we train a behavioral cloning policy that takes single RGB image from a fixed camera in the simulator and deploy it directly to the real robot without further fine-tuning. The action policy predicts the location of all the target objects simultaneously and is trained fully by only 2000 photorealistic images generated from TRITON. Check out the demo video below.</div>
+    <div class="video_wrapper">
+        <iframe src="https://www.youtube.com/embed/IwAs420hY6A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    
+
+    <br>
+    <br>
+    <h4>Apply textures to objects from sim</h4>
+    <div class="caption">TRITON makes simulated images realistic, while being more consistent than other image translation algorithms. On the top row of the video we have input images, and on the bottom row we have TRITON's output images. None of these object placements were seen in real life. Note how the surfaces of the objects appear consistent throughout the video, even though the cubes have slight shadows under them and the apple and soda cans remain shiny. </div>
+    <div class="video_wrapper">
+        <iframe src="https://www.youtube.com/embed/0t0xiVS_8D0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    
+
+    <br/>
+    <br/>
+    <h4>Deformable object</h4>
+    <div class="caption">TRITON also works on deformable objects like this American flag.</div>
+    <div class="video_wrapper">
+        <iframe src="https://www.youtube.com/embed/HPk4PHLaut4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <br/>
+    <br/>
+    <h4>Comparison with other methods</h4>
+    <div class="caption">  We compare TRITON to other image translation algorithms by moving the objects around. Note how although each individual frame might look realistic,  CycleGAN and CUT let the top of each cube can randomly shift whereas they remain the same using TRITON.</div>
+    <div class="video_wrapper">
+    <iframe src="https://www.youtube.com/embed/-GSixT4shxY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    
+    <br/>
+
+
+    <h2 class="abstract">TRITON recovered textures</h2>
+    <div class="caption">From TRITON's outputs, we can recover textures for each object. In this image we show the three recovered texture sets with respect to the above video.</div>
+    <img src="RecoveredTextures.png">
+
+    <br/>
+    <br/>
+    <div class="caption">Moreover, TRITON is also able to apply any learned texture to any other objects by giving the texture label to that object.</div>
+    <div class="video_wrapper">
+    <iframe src="https://www.youtube.com/embed/ivfBslj4Gsg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    
+
+
+    <!-- <div class="caption">We compare TRITON to other image translation algorithms using the moving objects. Note how the top of each cube can randomly shift when using CycleGAN and CUT, while they remain the same using TRITON.</div> -->
+    <!-- <br> -->
+    
+    <h2 class="abstract">Methodology</h2>
+    <p>TRITON's goal is to turn 3D simulated images into realistic fake photographs (by training it without any matching pairs), while maintaining high surface consistency. It does this by simultaneously learning both an image translator and a set of realistic textures. TRITON introduces a learnable neural neural texture with two novel surface consistency losses to an existing image translator.</p>
+    <p>Check the figure below to see how we apply each loss and please refer to our <a href="TRITON_Paper.pdf" target="_blank">paper</a> to find more details.</p>
+    <p>The code will be released soon!</p>
+    <img src="main_diagram_beautiful.png"/>
+    <div class="caption"></div>
+
+    <h3 id="texture">Neural Neural Textures</h3>
+    <p>Previous works called these learnable textures "neural textures", and were parametrized by a discrete grid of differentiable texels. In contrast, we call our learnable textures as <i>neural nerual textures</i>, because our textures themselves are represented as a neural network function, parameterized continuously over UV space. Using this representation instead of using discrete texels allows TRITON to learn faster and yields better results.</p>
+    <img src="learnable_textures.png"/>
+
+
+</body>
+</html>
