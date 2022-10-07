@@ -507,6 +507,12 @@ input.sidenote-toggle {
   margin-bottom: -0.2rem;
 }
 
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Format the LaTeX symbol correctly (a higher up, e lower) */
 .latex span:nth-child(1) {
   text-transform: uppercase;
