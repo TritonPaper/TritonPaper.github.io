@@ -102,21 +102,21 @@
     <div>
         <div style="display:flex; flex-direction: row;">
             <div style="padding-top:30.5%;" name="video_comparer" id="video-compare-container">
-                <video loop muted autoplay playsinline disablePictureInPicture>
+                <video loop muted playsinline disablePictureInPicture>
                     <source src="large_assets/robo5_cam_out.mp4">
                 </video>
                 <div id="video-clipper">
-                    <video loop muted autoplay playsinline disablePictureInPicture>
+                    <video loop muted playsinline disablePictureInPicture>
                         <source src="large_assets/robo5_cam_uvl.mp4">
                     </video>
                 </div>
             </div>
             <div style="flex:60%; padding-top:30.5%;" name="video_comparer" id="video-compare-container">
-                <video loop muted autoplay playsinline disablePictureInPicture>
+                <video loop muted playsinline disablePictureInPicture>
                     <source src="large_assets/fiveItems_cam_anim_1_out.mp4">
                 </video>
                 <div id="video-clipper">
-                    <video loop muted autoplay playsinline disablePictureInPicture>
+                    <video loop muted playsinline disablePictureInPicture>
                         <source src="large_assets/fiveItems_cam_anim_1_UVL.mp4">
                     </video>
                 </div>
@@ -359,10 +359,24 @@
             videoContainer.addEventListener("touchstart", trackLocation, false);
             videoContainer.addEventListener("touchmove", trackLocation, false);
             console.log(videoContainer)
-            // videoContainer.children[0].muted=true
-            // videoContainer.children[0].play()
-            // videoContainer.children[0].muted=true
-            // videoClipper.children[0].play()
+
+
+            function delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+            
+            
+            function play()
+            {
+                videoContainer.children[0].muted=true
+                videoContainer.children[0].play()
+                videoContainer.children[0].muted=true
+                videoClipper.children[0].play()
+            }
+
+            // delay(2000).then(play); //Make sure the videos are in sync; wait for the page to load
+
+            window.addEventListener('load',play);
         }
         for (let video_comparer of document.getElementsByName("video_comparer")) {
             hookUpComparer(video_comparer)
