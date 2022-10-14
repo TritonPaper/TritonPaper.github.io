@@ -5,6 +5,21 @@
  * Licensed under MIT (https://github.com/vincentdoerig/latex-css/blob/master/LICENSE)
 */
 
+h1 {
+  text-align: center; font-family: Cambrosia;
+}
+
+
+h2 {
+  text-align: center; font-family: Cambrosia;
+}
+
+
+@font-face {
+  font-family: "Cambrosia";
+  src: url(./fonts/Cambria.ttf) format("truetype");
+}
+
 @font-face {
   font-family: 'Latin Modern';
   font-style: normal;
@@ -625,8 +640,8 @@ h6 {
   background-position: center; 
 }
 div {
-  margin-top: .5rem;
-  margin-bottom: .5rem;
+  /* margin-top: .5rem; */
+  /* margin-bottom: .5rem; */
 }
 hr {
   height: 2px;

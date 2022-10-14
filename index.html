@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,900">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:300,400,700">
+
     <link rel="stylesheet" href="latex.css">
     <title>TRITON</title>
 </head>
@@ -34,35 +35,8 @@
             </g>
         </svg>
     </p>
-    
-    <div style="display:flex; flex-direction: row;" height="10px">
-        <div style="padding-top:30.5%;" name="video_comparer" id="video-compare-container">
-            <video loop muted autoplay playsinline disablePictureInPicture>
-                <source src="large_assets/robo5_cam_out.mp4">
-            </video>
-            <div id="video-clipper">
-                <video loop muted autoplay playsinline disablePictureInPicture>
-                    <source src="large_assets/robo5_cam_uvl.mp4">
-                </video>
-            </div>
-        </div>
 
-        <div style="flex:6%; padding-top:30.5%;" name="video_comparer" id="video-compare-container">
-            <video loop muted autoplay playsinline disablePictureInPicture>
-                <source src="large_assets/fiveItems_cam_anim_1_out.mp4">
-            </video>
-            <div id="video-clipper">
-                <video loop muted autoplay playsinline disablePictureInPicture>
-                    <source src="large_assets/fiveItems_cam_anim_1_UVL.mp4">
-                </video>
-            </div>
-        </div>
-    </div>
-    <div class="caption" style="margin: 0; outline-style: dashed; text-align: center;  flex:100;">
-        asdoijasodijoasijdoijo
-    </div>
-
-    <h1 style="text-align: center">Neural Neural Textures Make Sim2Real Consistent</h1>
+    <h1>Neural Neural Textures Make Sim2Real Consistent</h1>
 
 
     <p class="author">
@@ -76,6 +50,106 @@
         <a href="TRITON_Paper.pdf" target="_blank">[Paper]</a>
         <a href="https://github.com/TritonPaper/TRITON" target="_blank">[Code]</a>
     </p>
+
+    <h2>Abstract</h2>
+
+    We present <b>TRITON</b> (<b>T</b>exture <b>R</b>ecovering <b>I</b>mage <b>T</b>ranslation <b>N</b>etwork): an
+    unpaired image translation algorithm that achieves temporal consistency over indefinite timescales by generating neural textures on object surfaces. 
+    
+    <br/>
+
+    At inference time, TRITON takes in a special
+    <span style="letter-spacing:-3pt;color:red">R</span>
+    <span style="letter-spacing:-3pt;color:green">G</span>
+    <span style="color:blue">B</span>
+     image representing a 3d scene (which we call a 
+     <span style="letter-spacing:-3pt;color:red">U</span>
+     <span style="letter-spacing:-3pt;color:green">V</span>
+     <span style="color:blue">L</span>
+     image), and outputs a realistic 
+     <span style="letter-spacing:-3pt;color:red">R</span>
+     <span style="letter-spacing:-3pt;color:green">G</span>
+     <span style="color:blue">B</span>
+     image that can then be used for downstream tasks, such as training a robot.
+
+    <br>
+    <div">
+        <div style="display:flex; flex-direction: row;">
+            <div style="padding-top:30.5%;" name="video_comparer" id="video-compare-container">
+                <video loop muted autoplay playsinline disablePictureInPicture>
+                    <source src="large_assets/robo5_cam_out.mp4">
+                </video>
+                <div id="video-clipper">
+                    <video loop muted autoplay playsinline disablePictureInPicture>
+                        <source src="large_assets/robo5_cam_uvl.mp4">
+                    </video>
+                </div>
+            </div>
+            <div style="flex:60%; padding-top:30.5%;" name="video_comparer" id="video-compare-container">
+                <video loop muted autoplay playsinline disablePictureInPicture>
+                    <source src="large_assets/fiveItems_cam_anim_1_out.mp4">
+                </video>
+                <div id="video-clipper">
+                    <video loop muted autoplay playsinline disablePictureInPicture>
+                        <source src="large_assets/fiveItems_cam_anim_1_UVL.mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+        <div class="caption" style="text-align: center">
+            <i>On the left is the 
+                <span style="letter-spacing:-3pt;color:red">U</span>
+                <span style="letter-spacing:-3pt;color:green">V</span>
+                <span style="color:blue">L</span>
+                input image, and on the right is the translated
+                <span style="letter-spacing:-3pt;color:red">R</span>
+                <span style="letter-spacing:-3pt;color:green">G</span>
+                <span style="color:blue">B</span>
+                output image.
+            </i> 
+        </div>
+        <div style="display:flex; flex-direction: row;">
+            <img width="50%" height="50%" style="box-shadow: 0 3px 3px rgba(0,0,0,0.2);" src="./RobotFiveRecoveredTextures.png"/>
+            <span style="color:white">||</span> <!-- Spacing -->
+            <img width="50%" height="50%" style="box-shadow: 0 3px 3px rgba(0,0,0,0.2);" src="./fiveItemsTextures.svg"/>
+        </div>
+
+    </div>
+    
+
+    <!-- TRITON can produce photorealistic results given a  -->
+    <!-- Given a small set of unlabeled photographs and a set of simulated images,  -->
+    <!-- As a black box, TRITON takes in an image and outputs an image.  -->
+    
+    <h2>END Abstract</h2>
+    which takes the UV map and object labels of a 3d scene and renders a realistic
+    image. <b>TRITON</b> combines differentiable rendering with image translation to achieve temporal consistency over
+    indefinite timescales, using surface consistency losses and <a href="#texture"><i>neural neural textures</i></a>.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <img src="figure0.png" />
     <br>
@@ -198,23 +272,25 @@
     <!-- This paragraph: before/after videos -->
     <style>
         #video-compare-container {
-            flex:30%;
+            /* flex:30%; */
             padding-top:40.5%;
             /*  */
             display: inline-block;
-            /* line-height: 0; */
+            line-height: 0;
             position: relative;
             width: 100%;
             height:100%;
             margin: .5%;
-            border-style: dashed;
+            box-shadow: 0 3px 3px rgba(0,0,0,0.2);
+            /* border-style: dashed; */
+            
         }
         #video-compare-container>video {
             width: 100%;
             position: absolute;
             top: 0;
             height: 100%;
-            /* margin: 0%; */
+            margin: 0%;
         }
         #video-clipper {
             width: 50%;
@@ -225,10 +301,10 @@
             margin: 0;
         }
         #video-clipper video {
-            /* width: 200%; */
+            width: 200%;
             position: absolute;
             height: 100%;
-            /* margin: 0%; */
+            margin: 0%;
         }
     </style>
 
