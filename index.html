@@ -166,26 +166,61 @@
     <!-- As a black box, TRITON takes in an image and outputs an image.  -->
     
     <h2>How it Works</h2>
+    <h3>The Training Data</h3>
     <!-- which takes the UV map and object labels of a 3d scene and renders a realistic -->
     <!-- image. <b>TRITON</b> combines differentiable rendering with image translation to achieve temporal consistency over -->
     <!-- indefinite timescales, using surface consistency losses and <a href="#texture"><i>neural neural textures</i></a>. -->
-    To train TRITON, you need an unpaired set of photographs and simulated scenes, rendered as
+    To train TRITON, you need an unpaired set of photographs and a set of simulated scenes, rendered as
     <span style="letter-spacing:-3pt;color:red">U</span>
     <span style="letter-spacing:-3pt;color:green">V</span>
     <span style="color:blue">L</span>
-    images. <br>
+    images. <br><br>
+    
+    <img src='photo_film.svg' />
+    <div class="caption" style="text-align: center">
+        <i> We need a set of about 100 or so <span style="letter-spacing:-3pt;color:red">R</span>
+            <span style="letter-spacing:-3pt;color:green">G</span>
+            <span style="color:blue">B</span> real-life photographs
+        </i>
+    </div>
+    
+    <br>
+    
     <img src='uvl_explanation_minimal.svg' />
     <div class="caption" style="text-align: center">
-        <i><span style="letter-spacing:-3pt;color:red">U</span>
+        <i>
+            We also need a set of simulated
+            <span style="letter-spacing:-3pt;color:red">U</span>
             <span style="letter-spacing:-3pt;color:green">V</span>
-            <span style="color:blue">L</span> images encode the
+            <span style="color:blue">L</span> images, which encode the
             <span style="letter-spacing:-3pt;color:red">U</span>
             <span style="color:green">V</span>
-            coordinates of each object in a scene, as well as the object label <span style="color:blue">L</span>.
-
+            coordinates of each object in a scene, as well as the object label <span style="color:blue">L</span>. Because these images can be obtained cheaply, we can use thousands of them.
         </i>
     </div>
 
+    <h3>Neural Neural Textures</h3>
+    
+    What sets TRITON apart from other image translation algorithms is its use of neural neural textures. Instead of 
+    Previous works called these learnable textures "neural textures", and were parametrized by a discrete grid of
+    differentiable texels. In contrast, we call our learnable textures as <i>neural nerual textures</i>, because our
+    textures themselves are represented as a neural network function, parameterized continuously over UV space.
+    Using this representation instead of using discrete texels allows TRITON to learn faster and yields better
+    results. 
+    <img src="oversimplified_texture.svg" style="box-shadow: 0 3px 3px rgba(0,0,0,0.2)" width="75%" class="center"/>
+    <div class="caption" style="text-align: center">
+        <i> Each 3d object gets its own neural neural texture, which is represented continuously with an MLP.
+        </i>
+    </div>
+
+
+    <h3>The General Pipeline</h3>
+
+    <img src="oversimplified_pipeline.svg" style="box-shadow: 0 3px 3px rgba(0,0,0,0.2)" width="90%" class="center"/>
+    <div class="caption" style="text-align: center">
+        <i> This is a simplified version of the TRITON pipeline. It omits GAN losses as well as surface consistency losses. For more information, as well as a more detailed diagram, please read the paper!
+        </i>
+    </div>
 
 
 
@@ -295,7 +330,7 @@
     <!-- <div class="caption">We compare TRITON to other image translation algorithms using the moving objects. Note how the top of each cube can randomly shift when using CycleGAN and CUT, while they remain the same using TRITON.</div> -->
     <!-- <br> -->
 
-    <h2 class="abstract">Methodology</h2>
+    <!-- <h2 class="abstract">Methodology</h2>
     <p>TRITON's goal is to turn 3D simulated images into realistic fake photographs (by training it without any matching
         pairs), while maintaining high surface consistency. It does this by simultaneously learning both an image
         translator and a set of realistic textures. TRITON introduces a learnable neural neural texture with two novel
@@ -304,23 +339,20 @@
             target="_blank">paper</a> to find more details.</p>
     <p>The code will be released soon!</p>
     <img src="main_diagram_beautiful.png" />
-    <div class="caption"></div>
+    <div class="caption"></div> -->
 
-    <h3 id="texture">Neural Neural Textures</h3>
-    <p>Previous works called these learnable textures "neural textures", and were parametrized by a discrete grid of
+    <!-- <h3 id="texture">Neural Neural Textures</h3> -->
+    <!-- <p>Previous works called these learnable textures "neural textures", and were parametrized by a discrete grid of
         differentiable texels. In contrast, we call our learnable textures as <i>neural nerual textures</i>, because our
         textures themselves are represented as a neural network function, parameterized continuously over UV space.
         Using this representation instead of using discrete texels allows TRITON to learn faster and yields better
         results.</p>
-    <img src="learnable_textures.png" />
-
-
+    <img src="learnable_textures.png" /> -->
 
 
     <br>
-    <br>
 
-    <h4>Robot policy trained by sim2real</h4>
+    <h3>Robot policy trained by sim2real</h3>
     <div class="caption">TRITON enables a robot reacher task. In this sim2real experiment, we train a behavioral cloning
         policy that takes single RGB image from a fixed camera in the simulator and deploy it directly to the real robot
         without further fine-tuning. The action policy predicts the location of all the target objects simultaneously
@@ -416,9 +448,11 @@
         }
     </script> 
 
+<h2>Citation</h2>
+
 If you would like to cite us, please use the below bibtex citation:
 
-<div style="font-family:monospace">
+<div style="font-family:monospace;background-color: rgb(232, 232, 232);padding: 10pt;border-radius: 10pt;box-shadow: 0 3px 3px rgba(0,0,0,0.2);">
     @misc{https://doi.org/10.48550/arxiv.2206.13500,
         <br>
         doi = {10.48550/ARXIV.2206.13500},
