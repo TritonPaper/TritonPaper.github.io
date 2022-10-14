@@ -29,6 +29,14 @@
         }
 
 
+
+        h3 {
+            text-align: center;
+            font-family: Cambrosia;
+        }
+
+
+
         @font-face {
             font-family: "Cambrosia";
             src: url(./fonts/Cambria.ttf) format("truetype");
@@ -95,7 +103,11 @@
      <span style="letter-spacing:-3pt;color:red">R</span>
      <span style="letter-spacing:-3pt;color:green">G</span>
      <span style="color:blue">B</span>
-     image that can then be used for downstream tasks, such as training a robot.
+     image that can then be used for downstream tasks, such as training a robot. The input
+     <span style="letter-spacing:-3pt;color:red">U</span>
+     <span style="letter-spacing:-3pt;color:green">V</span>
+     <span style="color:blue">L</span>
+    images are simple enough that even the most rudimentary 3d renderer can generate them.
 
     <br/>
     <br/>
@@ -153,10 +165,42 @@
     <!-- Given a small set of unlabeled photographs and a set of simulated images,  -->
     <!-- As a black box, TRITON takes in an image and outputs an image.  -->
     
-    <h2>END Abstract</h2>
-    which takes the UV map and object labels of a 3d scene and renders a realistic
-    image. <b>TRITON</b> combines differentiable rendering with image translation to achieve temporal consistency over
-    indefinite timescales, using surface consistency losses and <a href="#texture"><i>neural neural textures</i></a>.
+    <h2>How it Works</h2>
+    <!-- which takes the UV map and object labels of a 3d scene and renders a realistic -->
+    <!-- image. <b>TRITON</b> combines differentiable rendering with image translation to achieve temporal consistency over -->
+    <!-- indefinite timescales, using surface consistency losses and <a href="#texture"><i>neural neural textures</i></a>. -->
+    To train TRITON, you need an unpaired set of photographs and simulated scenes, rendered as
+    <span style="letter-spacing:-3pt;color:red">U</span>
+    <span style="letter-spacing:-3pt;color:green">V</span>
+    <span style="color:blue">L</span>
+    images. <br>
+    <img src='uvl_explanation_minimal.svg' />
+    <div class="caption" style="text-align: center">
+        <i><span style="letter-spacing:-3pt;color:red">U</span>
+            <span style="letter-spacing:-3pt;color:green">V</span>
+            <span style="color:blue">L</span> images encode the
+            <span style="letter-spacing:-3pt;color:red">U</span>
+            <span style="color:green">V</span>
+            coordinates of each object in a scene, as well as the object label <span style="color:blue">L</span>.
+
+        </i>
+    </div>
+
+
+
+
+
+
+    
+    <h2>Results</h2>
+
+    <h3>Comparison to other Image Translators</h3>
+    <div class="video_wrapper">
+        <iframe src="https://www.youtube-nocookie.com/embed/JXNLwWoAlgQ?autoplay=1&rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="caption"><i>In the above video, we compare the outputs of TRITON to various other image translation
+            algorithms. TRITON provides higher quality, temporally consistent results. This is because TRITON is better at
+            making use of 3d geometry. or more comparison videos like this, please see our paper's appendix.</i></div>
 
 
 
@@ -172,18 +216,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-    <img src="figure0.png" />
+    <!-- <img src="figure0.png" />
     <br>
     We propose <b>TRITON</b> (<b>T</b>exture <b>R</b>ecovering <b>I</b>mage <b>T</b>ranslation <b>N</b>etwork): an
     unpaired image translation algorithm which takes the UV map and object labels of a 3d scene and renders a realistic
@@ -213,7 +246,7 @@
 
 
     <br />
-    <br />
+    <br /> -->
 
     <!-- <h4>Deformable object</h4>
     <div class="caption">TRITON also works on deformable objects like this American flag.</div>
@@ -222,7 +255,7 @@
         <iframe src="https://www.youtube-nocookie.com/embed/HPk4PHLaut4?autoplay=1&rel=0" frameborder="0" allowfullscreen ></iframe>
     </div> -->
 
-    <br />
+    <!-- <br />
     <br />
     <h4>Comparison with other methods</h4>
     <div class="caption"> We compare TRITON to other image translation algorithms by moving the objects around. Note how
@@ -244,7 +277,7 @@
     <img src="RobotFiveRecoveredTextures.png" width="40%" class="center">
 
     <br />
-    <br />
+    <br /> -->
     <!-- <div class="caption">Moreover, TRITON is also able to apply any learned texture to any other objects by giving the
         texture label to that object.</div>
 
@@ -253,11 +286,11 @@
     </div> -->
 
 
-    Additionally, TRITON can synthesize new viewpoints - even if it was only trained from a single viewpoint. This is because it is able to effectively leverage the underlying geometry from the input images.
+    <!-- Additionally, TRITON can synthesize new viewpoints - even if it was only trained from a single viewpoint. This is because it is able to effectively leverage the underlying geometry from the input images.
 
     <div class="video_wrapper">
         <iframe src="https://www.youtube-nocookie.com/embed/qlfMPG1_AoU?autoplay=1&rel=0" frameborder="0" allowfullscreen ></iframe>
-    </div>
+    </div> -->
 
     <!-- <div class="caption">We compare TRITON to other image translation algorithms using the moving objects. Note how the top of each cube can randomly shift when using CycleGAN and CUT, while they remain the same using TRITON.</div> -->
     <!-- <br> -->
@@ -384,6 +417,37 @@
     </script> 
 
 If you would like to cite us, please use the below bibtex citation:
+
+<div style="font-family:monospace">
+    @misc{https://doi.org/10.48550/arxiv.2206.13500,
+        <br>
+        doi = {10.48550/ARXIV.2206.13500},
+        <br>
+        url = {https://arxiv.org/abs/2206.13500},
+        <br>
+        
+        author = {Burgert, Ryan and Shang, Jinghuan and Li, Xiang and Ryoo, Michael},
+        <br>
+        
+        keywords = {Computer Vision and Pattern Recognition (cs.CV), Graphics (cs.GR), Machine Learning (cs.LG), Robotics (cs.RO), FOS: Computer and information sciences, FOS: Computer and information sciences},
+        <br>
+        
+        title = {Neural Neural Textures Make Sim2Real Consistent},
+        <br>
+        
+        publisher = {arXiv},
+        <br>
+        
+        year = {2022},
+        <br>
+        
+        copyright = {arXiv.org perpetual, non-exclusive license}
+        <br>
+    }
+    <br>
+      
+
+</div>
 
 
 </html>
