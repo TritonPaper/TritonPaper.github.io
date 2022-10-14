@@ -144,6 +144,7 @@
                 <span style="letter-spacing:-3pt;color:green">G</span>
                 <span style="color:blue">B</span>
                 output image. Note that all training photographs were taken from the same camera position; this video extrapolates new camera positions as well as new object positions.
+                This should be animated - if it's not working, please try a Chromium based browser.
             </i> 
         </div>
         <br>
@@ -439,7 +440,7 @@
                 videoClipper.children[0].play()
             }
 
-            // delay(2000).then(play); //Make sure the videos are in sync; wait for the page to load
+            delay(10000).then(play); //Make sure the videos are in sync; wait for the page to load
 
             window.addEventListener('load',play);
         }
