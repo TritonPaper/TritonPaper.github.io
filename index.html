@@ -474,12 +474,16 @@
             function play()
             {
                 videoContainer.children[0].muted=true
-                videoContainer.children[0].play()
-                videoContainer.children[0].muted=true
-                videoClipper.children[0].play()
+                videoClipper  .children[0].muted=true
+                function do_play()
+                {
+                    videoContainer.children[0].play()
+                    videoClipper  .children[0].play()
+                }
+                delay(2000).then(do_play); //Make sure the videos are in sync; wait for the page to load
             }
 
-            delay(10000).then(play); //Make sure the videos are in sync; wait for the page to load
+            // delay(10000).then(play); //Make sure the videos are in sync; wait for the page to load
 
             window.addEventListener('load',play);
         }
