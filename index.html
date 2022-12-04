@@ -71,7 +71,7 @@
             </g>
         </svg>
     </p>
-
+	<h1>Update</h1>
     <h1>Neural Neural Textures Make Sim2Real Consistent</h1>
 
 
@@ -504,8 +504,11 @@
             }
 
             // delay(10000).then(play); //Make sure the videos are in sync; wait for the page to load
+	    
 
-            window.addEventListener('load',play);
+	    // JS trying to fix async videos
+            //window.addEventListener('load',play);
+	    document.addEventListener("DOMContentLoaded", play);
         }
         for (let video_comparer of document.getElementsByName("video_comparer")) {
             hookUpComparer(video_comparer)
